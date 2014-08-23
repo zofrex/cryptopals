@@ -1,5 +1,5 @@
 mod hex;
 
 fn main() {
-    println!("Output: {}", hex::hex_to_dec('0'));
+    println!("Output: {}", hex::hex_to_int('0'));
 }

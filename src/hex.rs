@@ -1,4 +1,4 @@
-pub fn hex_to_dec(hex: char) -> int {
+pub fn hex_to_int(hex: char) -> int {
     if hex >= '0' && hex <= '9' {
         hex as int - '0' as int
     }
@@ -14,18 +14,18 @@ pub fn hex_to_dec(hex: char) -> int {
 fn all_hexes() {
     let hexes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
     for i in range(0u, hexes.len()) {
-        assert_eq!(hex_to_dec(hexes[i]), i as int);
+        assert_eq!(hex_to_int(hexes[i]), i as int);
     }
 }
 
 #[test]
 #[should_fail]
 fn test_too_large() {
-    hex_to_dec('g');
+    hex_to_int('g');
 }
 
 #[test]
 #[should_fail]
 fn test_too_small() {
-    hex_to_dec('/');
+    hex_to_int('/');
 }

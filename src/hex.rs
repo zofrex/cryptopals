@@ -6,7 +6,7 @@ pub fn hex_to_int(hex: char) -> int {
         hex as int - 'a' as int + 10
     }
     else {
-        fail!("Character {} out of range", hex);
+        panic!("Character {} out of range", hex);
     }
 }
 

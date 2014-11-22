@@ -28,6 +28,15 @@ pub fn index_base64(index: u8) -> char {
     }
 }
 
+pub fn int_triplet_to_base64(triplet: &[u8, ..3]) -> Vec<char> {
+    let mut indexes: [u8, ..4] = [0,0,0,0];
+    indexes[0] = (triplet[0] & 0b11111100) >> 2;
+    indexes[1] = ((triplet[0] & 0b00000011) << 4) | ((triplet[1] & 0b11110000) >> 4);
+    indexes[2] = ((triplet[1] & 0b00001111) << 2) | ((triplet[2] & 0b11000000) >> 6);
+    indexes[3] = triplet[2] & 0b00111111;
+    indexes.iter().map(|i| index_base64(*i)).collect()
+}
+
 #[test]
 fn all_hexes() {
     let hexes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
@@ -74,4 +83,9 @@ fn look_up_base64_others() {
 #[should_fail]
 fn look_up_base64_too_large() {
     index_base64(64);
+}
+
+#[test]
+fn test_triplet_to_base64() {
+    assert_eq!(int_triplet_to_base64(&[77, 97, 110]), vec!['T', 'W', 'F', 'u']);
 }

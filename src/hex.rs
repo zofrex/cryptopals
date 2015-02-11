@@ -1,9 +1,9 @@
-pub fn hex_to_int(hex: char) -> int {
+pub fn hex_to_int(hex: char) -> u8 {
     if hex >= '0' && hex <= '9' {
-        hex as int - '0' as int
+        hex as u8 - '0' as u8
     }
     else if hex >= 'a' && hex <= 'f' {
-        hex as int - 'a' as int + 10
+        hex as u8 - 'a' as u8 + 10
     }
     else {
         panic!("Character {} out of range", hex);
@@ -40,8 +40,8 @@ pub fn int_triplet_to_base64(triplet: &[u8; 3]) -> Vec<char> {
 #[test]
 fn all_hexes() {
     let hexes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-    for i in range(0u, hexes.len()) {
-        assert_eq!(hex_to_int(hexes[i]), i as int);
+    for i in range(0us, hexes.len()) {
+        assert_eq!(hex_to_int(hexes[i]), i as u8);
     }
 }
 
@@ -60,7 +60,7 @@ fn test_too_small() {
 #[test]
 fn look_up_base64_index_caps() {
     let base64s = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    for i in range(0u, base64s.len()) {
+    for i in range(0us, base64s.len()) {
         assert_eq!(index_base64(i as u8), base64s[i]);
     }
 }
@@ -68,7 +68,7 @@ fn look_up_base64_index_caps() {
 #[test]
 fn look_up_base64_index_lowers() {
     let base64s = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    for i in range(0u, base64s.len()) {
+    for i in range(0us, base64s.len()) {
         assert_eq!(index_base64(i as u8 + 26), base64s[i]);
     }
 }

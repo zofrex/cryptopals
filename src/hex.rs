@@ -28,8 +28,8 @@ pub fn index_base64(index: u8) -> char {
     }
 }
 
-pub fn int_triplet_to_base64(triplet: &[u8, ..3]) -> Vec<char> {
-    let mut indexes: [u8, ..4] = [0,0,0,0];
+pub fn int_triplet_to_base64(triplet: &[u8; 3]) -> Vec<char> {
+    let mut indexes: [u8; 4] = [0,0,0,0];
     indexes[0] = (triplet[0] & 0b11111100) >> 2;
     indexes[1] = ((triplet[0] & 0b00000011) << 4) | ((triplet[1] & 0b11110000) >> 4);
     indexes[2] = ((triplet[1] & 0b00001111) << 2) | ((triplet[2] & 0b11000000) >> 6);

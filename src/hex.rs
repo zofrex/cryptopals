@@ -10,6 +10,10 @@ pub fn hex_to_int(hex: char) -> u8 {
     }
 }
 
+fn hex_string_to_int_array(hex: &str) -> Vec<u8> {
+    hex.chars().map(hex_to_int).collect()
+}
+
 pub fn index_base64(index: u8) -> char {
     if index < 26 {
         ('A' as u8 + index) as char
@@ -67,6 +71,12 @@ fn test_too_large() {
 #[should_fail]
 fn test_too_small() {
     hex_to_int('/');
+}
+
+#[test]
+fn test_string_to_int() {
+    assert_eq!(hex_string_to_int_array("a"), vec![10]);
+    assert_eq!(hex_string_to_int_array("05af"), vec![0, 5, 10, 15]);
 }
 
 #[test]

@@ -21,6 +21,9 @@ pub fn index_base64(index: u8) -> char {
     else if index < 52 {
         ('a' as u8 + index - 26) as char
     }
+    else if index < 62 {
+        ('0' as u8 + index - 52) as char
+    }
     else if index == 62 {
         '+'
     }
@@ -92,6 +95,14 @@ fn look_up_base64_index_lowers() {
     let base64s = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     for i in 0us..base64s.len() {
         assert_eq!(index_base64(i as u8 + 26), base64s[i]);
+    }
+}
+
+#[test]
+fn look_up_base64_index_numbers() {
+    let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    for i in 0..numbers.len() {
+        assert_eq!(index_base64(i as u8 + 52), numbers[i]);
     }
 }
 

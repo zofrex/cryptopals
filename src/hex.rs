@@ -1,10 +1,10 @@
 pub fn hex_to_base64(hex: &str) -> Vec<char> {
     let mut base64: Vec<char> = vec![];
     for group in hex_string_to_int_array(hex).chunks(3) {
-        let res = match group.len() {
-            1 => int_singlet_to_base64(&[group[0]]),
-            2 => int_couplet_to_base64(&[group[0], group[1]]),
-            3 => int_triplet_to_base64(&[group[0], group[1], group[2]]),
+        let res = match group {
+            [a] => int_singlet_to_base64(&[a]),
+            [a, b] => int_couplet_to_base64(&[a, b]),
+            [a, b, c] => int_triplet_to_base64(&[a, b, c]),
             _ => panic!()
         };
         base64.push_all(res.as_slice());
@@ -13,14 +13,10 @@ pub fn hex_to_base64(hex: &str) -> Vec<char> {
 }
 
 pub fn hex_to_int(hex: char) -> u8 {
-    if hex >= '0' && hex <= '9' {
-        hex as u8 - '0' as u8
-    }
-    else if hex >= 'a' && hex <= 'f' {
-        hex as u8 - 'a' as u8 + 10
-    }
-    else {
-        panic!("Character {} out of range", hex);
+    match hex {
+        '0'...'9' => hex as u8 - '0' as u8,
+        'a'...'f' => hex as u8 - 'a' as u8 + 10,
+        _ => panic!("Character {} out of range", hex)
     }
 }
 

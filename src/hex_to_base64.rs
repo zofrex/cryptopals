@@ -2,5 +2,7 @@ mod hex;
 
 #[cfg(not(test))]
 fn main() {
-    println!("Output: {}", hex::hex_to_int('0'));
+    let input = std::old_io::stdin().read_line().ok().expect("Failed to read line");
+    let input = input.trim();
+    println!("Output: {:?}", hex::hex_to_base64(&input));
 }

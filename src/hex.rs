@@ -1,3 +1,17 @@
+pub fn hex_to_base64(hex: &str) -> Vec<char> {
+    let mut base64: Vec<char> = vec![];
+    for group in hex_string_to_int_array(hex).chunks(3) {
+        let res = match group.len() {
+            1 => int_singlet_to_base64(&[group[0]]),
+            2 => int_couplet_to_base64(&[group[0], group[1]]),
+            3 => int_triplet_to_base64(&[group[0], group[1], group[2]]),
+            _ => panic!()
+        };
+        base64.push_all(res.as_slice());
+    }
+    base64
+}
+
 pub fn hex_to_int(hex: char) -> u8 {
     if hex >= '0' && hex <= '9' {
         hex as u8 - '0' as u8
@@ -58,6 +72,13 @@ pub fn int_singlet_to_base64(singlet: &[u8; 1]) -> Vec<char> {
     let mut result = int_couplet_to_base64(&[singlet[0], 0]);
     result[2] = '=';
     result
+}
+
+#[test]
+fn test_hex_to_base64() {
+    let input = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
+    let output = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
+    assert_eq!(hex_to_base64(input), output.chars().collect());
 }
 
 #[test]

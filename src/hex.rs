@@ -27,20 +27,15 @@ fn hex_string_to_int_array(hex: &str) -> Vec<u8> {
 pub fn index_base64(index: u8) -> char {
     if index < 26 {
         ('A' as u8 + index) as char
-    }
-    else if index < 52 {
+    } else if index < 52 {
         ('a' as u8 + index - 26) as char
-    }
-    else if index < 62 {
+    } else if index < 62 {
         ('0' as u8 + index - 52) as char
-    }
-    else if index == 62 {
+    } else if index == 62 {
         '+'
-    }
-    else if index == 63 {
+    } else if index == 63 {
         '/'
-    }
-    else {
+    } else {
         panic!("Index {} out of range", index);
     }
 }

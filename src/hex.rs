@@ -11,7 +11,11 @@ pub fn hex_to_int(hex: char) -> u8 {
 }
 
 fn hex_string_to_int_array(hex: &str) -> Vec<u8> {
-    hex.chars().map(hex_to_int).collect()
+    let mut result = vec![];
+    for pair in hex.chars().map(hex_to_int).collect::<Vec<u8>>().chunks(2) {
+        result.push(pair[0] * 16 + pair[1]);
+    }
+    result
 }
 
 pub fn index_base64(index: u8) -> char {
@@ -78,8 +82,8 @@ fn test_too_small() {
 
 #[test]
 fn test_string_to_int() {
-    assert_eq!(hex_string_to_int_array("a"), vec![10]);
-    assert_eq!(hex_string_to_int_array("05af"), vec![0, 5, 10, 15]);
+    assert_eq!(hex_string_to_int_array("0a"), vec![10]);
+    assert_eq!(hex_string_to_int_array("05af"), vec![5, 175]);
 }
 
 #[test]
